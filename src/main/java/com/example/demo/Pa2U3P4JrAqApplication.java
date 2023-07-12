@@ -19,7 +19,26 @@ public class Pa2U3P4JrAqApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("");
+		System.out.println("Inner Join");
 		this.hotelService.buscarHotelInnerJoin().stream().forEach(System.out::println);
+		System.out.println("");
+		System.out.println("Outer Right Join");
+		this.hotelService.buscarOuterRightJoin().stream().forEach(System.out::println);
+		System.out.println("");
+		System.out.println("Outer Left Join");
+		this.hotelService.buscarOuterLeftJoin().stream().forEach(System.out::println);
+		System.out.println("");
+		System.out.println("Outer Habitacion Left Join");
+		this.hotelService.buscarHabitacionOuterLeftJoin().stream().forEach(System.out::println);
+		System.out.println("");
+		System.out.println("Outer Full Join");
+		this.hotelService.buscarOuterFullJoin().stream().forEach(System.out::println);
+		
+		System.out.println("");
+		System.out.println("Where Inner Join");
+		this.hotelService.buscarWhereJoin().stream().forEach(System.out::println);
+
 	}
 
 }
