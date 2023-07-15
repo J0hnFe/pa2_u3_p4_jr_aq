@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 @Entity
 @Table(name = "habitacion")
 public class Habitacion {
@@ -27,6 +28,10 @@ public class Habitacion {
 	@Column(name = "habi_valor")
 	private BigDecimal valor;
 	
+	//Cuando tengo un atributo que no quiero que se mapee en la BD
+	//util para un calculo, no afecta la BD!
+	@Transient
+	private BigDecimal valorIncluidoIVA;
 
 	@ManyToOne
 	@JoinColumn(name = "habi_id_hotel")
@@ -41,9 +46,6 @@ public class Habitacion {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getNumero() {
 		return numero;
@@ -67,6 +69,14 @@ public class Habitacion {
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
+	}
+
+	public BigDecimal getValorIncluidoIVA() {
+		return valorIncluidoIVA;
+	}
+
+	public void setValorIncluidoIVA(BigDecimal valorIncluidoIVA) {
+		this.valorIncluidoIVA = valorIncluidoIVA;
 	}
 	
 	

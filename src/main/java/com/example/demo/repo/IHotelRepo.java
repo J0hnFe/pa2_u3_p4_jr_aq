@@ -7,7 +7,7 @@ import com.example.demo.repo.modelo.Hotel;
 
 public interface IHotelRepo {
 	
-//	public void insertar(Hotel h)
+   public void insertar(Hotel h);
 
 	public List<Hotel> seleccionarHotelInnerJoin();
 	public List<Hotel> seleccionarOuterRightJoin();
@@ -16,5 +16,7 @@ public interface IHotelRepo {
 	public List<Hotel> seleccionarOuterFullJoin();
 	
 	public List<Hotel> seleccionarWhereJoin();
+	
+	public List<Hotel> seleccionarFetchJoin();
 	
 }
