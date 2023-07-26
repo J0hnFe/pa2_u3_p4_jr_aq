@@ -12,6 +12,9 @@ import com.example.demo.repo.ITransferenciaRepo;
 import com.example.demo.repo.modelo.CtaBancaria;
 import com.example.demo.repo.modelo.Transferencia;
 
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
+
 @Service
 public class TransferenciaServiceImpl implements ITransferenciaService{
 	
@@ -21,6 +24,7 @@ public class TransferenciaServiceImpl implements ITransferenciaService{
 	private ICtaBancariaRepo ctaBancariaRepo;
 
 	@Override
+	@Transactional(value = TxType.REQUIRES_NEW)
 	public void realizarTransf(String nOrigen, String nDestino, BigDecimal monto) {
 		CtaBancaria ctaBancariaOrigen = this.ctaBancariaRepo.seleccionar(nOrigen);
 		CtaBancaria ctaBancariaDestino = this.ctaBancariaRepo.seleccionar(nDestino);
@@ -42,8 +46,10 @@ public class TransferenciaServiceImpl implements ITransferenciaService{
 			this.ctaBancariaRepo.actualizar(ctaBancariaDestino);
 			this.transferenciaRepo.insertar(transferencia);
 			
+			
 		} else {
 			System.out.println("Error al realizar la transferencia");
+			throw new RuntimeException(); //esto debe ser un RunTime exception (unchecked), sino no funciona y la transferencia se ejecuta de todas fomas
 		}
 		
 	}
