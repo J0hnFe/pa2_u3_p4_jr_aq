@@ -50,6 +50,7 @@ public class TransferenciaServiceImpl implements ITransferenciaService{
 		} else {
 			System.out.println("Error al realizar la transferencia");
 			throw new RuntimeException(); //esto debe ser un RunTime exception (unchecked), sino no funciona y la transferencia se ejecuta de todas fomas
+	
 		}
 		
 	}
