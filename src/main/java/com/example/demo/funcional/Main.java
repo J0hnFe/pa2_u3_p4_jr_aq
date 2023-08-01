@@ -56,7 +56,6 @@ public class Main {
 		// Met. Referenciados
 		IPersonaConsumer<String> consumer3 = metodosReferenciados::aceptar;
 		LOG.info("Consumer  met. referenciado: ");
-
 		consumer3.accept("Gerardo");
 
 		// 3. Predicate
@@ -85,13 +84,12 @@ public class Main {
 
 		// metodos referenciados
 		IPersonaPredicate<Integer> predicate5 = metodosReferenciados::evaluar;
-
 		LOG.info(" Predicate M.Referenciados " + predicate5.evaluar(2));
 
 		// 4. Function
 
+		// Lambda
 		IPersonaFunction<String, BigDecimal> function = numero -> numero.toString();
-
 		LOG.info("Function lambda: " + function.aplicar(new BigDecimal(10.1)));
 
 		IPersonaFunction<String, Integer> function1 = numero1 -> {
@@ -100,6 +98,10 @@ public class Main {
 		};
 
 		LOG.info("Function lambda2: " + function1.aplicar(10));
+		
+		//Met. referenciados
+		IPersonaFunction<String, Integer> function2 = metodosReferenciados::aplicar;
+		LOG.info(" Function M.Referenciados " + function2.aplicar(55));
 
 		// 5. Unary Operator
 		IPersonaUnary<Integer> unary = numero -> numero + (numero * 2);
@@ -109,9 +111,12 @@ public class Main {
 		IPersonaUnaryFunction<Integer> unaryFunc = numero -> numero + (numero * 2);
 		LOG.info("UnaryFunc lambda1: " + unaryFunc.aplicar(15));
 
-		// Metodos referenciados
-		// (mientras cumpla el contrato lo puedo pasar como una implementacion de la
-		// IFuncional)
+		// Met. referenciados
+		IPersonaUnary<Double> unary2 = metodosReferenciados::aplicar;
+		LOG.info(" Unary M.Referenciados " + unary2.aplicar(55.0));
+		
+		IPersonaUnaryFunction<Double> unary3 = metodosReferenciados::aplicar;
+		LOG.info(" UnaryFunc M.Referenciados " + unary3.aplicar(100.0));
 
 	}
 }
