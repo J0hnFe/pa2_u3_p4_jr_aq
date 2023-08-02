@@ -5,30 +5,46 @@ import org.slf4j.LoggerFactory;
 
 public class MetodosReferenciados {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MetodosReferenciados.class); // buena practica usar este
-																							// logger para
+	private static final Logger LOG = LoggerFactory.getLogger(MetodosReferenciados.class); 
 
 	// Supplier
-	public Integer getId() {
+	public static Integer getId() {
 
 		return 8;
 	}
+	
+	public static String  getIdHO() {
+LOG.info(" Metodos Referenciados HO");
+		return "Tamal 2";
+	}
+	
 
 	// Consumer
-	public void aceptar(String arg) {
+	public static void aceptar(String arg) {
 		String cadena = "Nombre";
 
 		LOG.info(cadena + " " + arg);
 	}
 	// predicate
 
-	public boolean evaluar(Integer arg) {
+	public static boolean evaluar(Integer arg) {
 		if (arg.compareTo(2) == 0) {
 			return true;
 		} else {
 			return false;
 		}
 
-	};
+	}
 
+	// Function
+	public String aplicar(Integer arg) {
+		String valorFinal = arg.toString().concat(" - valor string");
+		return valorFinal;
+	}
+
+	// Unary
+	public Double aplicar(Double arg) {
+		Double num = arg * 0.3;
+		return num;
+	}
 }

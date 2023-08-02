@@ -1,6 +1,10 @@
 package com.example.demo.funcional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +39,11 @@ public class Main {
 
 		// Metodos referenciados
 		MetodosReferenciados metodosReferenciados = new MetodosReferenciados();
-		IPersonaSupplier<Integer> supplier4 = metodosReferenciados::getId;
+		IPersonaSupplier<Integer> supplier4 = MetodosReferenciados::getId;
 		LOG.info("Supplier  met. referenciado: " + supplier4.getId());
+
+		// Metodos High Order
+//metodos que reciben como argumento una implementacion de interfaz funcional
 
 		// 2. Consumer
 		// Clases
@@ -54,7 +61,7 @@ public class Main {
 		consumer2.accept("Anddy Tamal");
 
 		// Met. Referenciados
-		IPersonaConsumer<String> consumer3 = metodosReferenciados::aceptar;
+		IPersonaConsumer<String> consumer3 = MetodosReferenciados::aceptar;
 		LOG.info("Consumer  met. referenciado: ");
 
 		consumer3.accept("Gerardo");
@@ -84,7 +91,7 @@ public class Main {
 		LOG.info("Predicate  lambda4: " + predicate4.evaluar("h", "holi"));
 
 		// metodos referenciados
-		IPersonaPredicate<Integer> predicate5 = metodosReferenciados::evaluar;
+		IPersonaPredicate<Integer> predicate5 = MetodosReferenciados::evaluar;
 
 		LOG.info(" Predicate M.Referenciados " + predicate5.evaluar(2));
 
@@ -101,6 +108,10 @@ public class Main {
 
 		LOG.info("Function lambda2: " + function1.aplicar(10));
 
+		// Met. referenciados
+		IPersonaFunction<String, Integer> function2 = metodosReferenciados::aplicar;
+		LOG.info(" Function M.Referenciados " + function2.aplicar(55));
+
 		// 5. Unary Operator
 		IPersonaUnary<Integer> unary = numero -> numero + (numero * 2);
 		LOG.info("Unary lambda1: " + unary.aplicar(25));
@@ -109,9 +120,71 @@ public class Main {
 		IPersonaUnaryFunction<Integer> unaryFunc = numero -> numero + (numero * 2);
 		LOG.info("UnaryFunc lambda1: " + unaryFunc.aplicar(15));
 
+		// Met. referenciados
+		IPersonaUnary<Double> unary2 = metodosReferenciados::aplicar;
+		LOG.info(" Unary M.Referenciados " + unary2.aplicar(55.0));
+
+		IPersonaUnaryFunction<Double> unary3 = metodosReferenciados::aplicar;
+		LOG.info(" UnaryFunc M.Referenciados " + unary3.aplicar(100.0));
+
 		// Metodos referenciados
 		// (mientras cumpla el contrato lo puedo pasar como una implementacion de la
 		// IFuncional)
+		// *******************************************************
+		// Metodos HighOrder
+		MetodosHighOrder highOrder = new MetodosHighOrder();
 
+		// Supplier
+		// 1. Clase
+		IPersonaSupplier<String> supplierHO = new PersonaSupplierImpl();
+		highOrder.metodo(supplierHO);
+
+		// 2. Lambdas
+		highOrder.metodo(() -> "1234HO");
+
+		// 3. metodos referenciados
+		highOrder.metodo(MetodosReferenciados::getIdHO);
+
+		// Consumer
+		// 1. Clase
+		IPersonaConsumer<String> consumerHO = new PersonaConsumerImpl();
+		highOrder.metodoCons(new PersonaConsumerImpl(), "Clase consumer");
+
+		// 2. Lambdas
+		highOrder.metodoCons(cadena -> LOG.info(cadena), "Lambdas Consumer");
+
+		// 3. metodos referenciados
+		highOrder.metodoCons(MetodosReferenciados::aceptar, "Metodos referenciados Consumer");
+
+		// *********************INT. FUNCIONALES JAVA***********************
+		// 1. Supplier
+//		Supplier
+		Stream<String> lista = Stream.generate(() -> "123").limit(10);
+		lista.forEach(cadena -> LOG.info(cadena));
+
+		// 2. Consumer
+		List<Integer> listaNumeros = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
+		listaNumeros.forEach(cadena -> LOG.info("" + cadena));
+
+		//3. Predicate
+		Stream<Integer> listaFinal = listaNumeros.stream().filter(numero -> numero >= 5);
+		listaFinal.forEach(numero -> LOG.info("Valor: " + numero));
+		
+		//4. Function
+		Stream<String> listaCamb = listaNumeros.stream().map(numero -> {
+			Integer num = 10;
+			num = numero + num;
+			return "n: " + num;
+		});
+		listaCamb.forEach(x -> LOG.info(x));
+		
+		//5. UnaryOperator
+		Stream<Integer> listaCamb2 = listaNumeros.stream().map(x -> {
+			Integer num = 10;
+			num = x + num;
+			return  num;
+		});
+		listaCamb2.forEach(x -> LOG.info("" + x));
+		
 	}
 }
