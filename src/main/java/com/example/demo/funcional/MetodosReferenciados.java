@@ -42,4 +42,10 @@ public class MetodosReferenciados {
 		Double num = arg * 0.3;
 		return num;
 	}
+	
+	// Unary2
+	public static String aplicarUn(Integer arg) {
+		String valorFinal = arg.toString().concat(" - unary ");
+		return valorFinal;
+	}
 }
