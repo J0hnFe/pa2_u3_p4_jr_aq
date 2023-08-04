@@ -14,8 +14,22 @@ public class MetodosHighOrder {
 
 	//CONSUMER
 	public void metodoCons(IPersonaConsumer<String> nombre, String arg) {
+		LOG.info("High order consumer: ");
 		nombre.accept(arg);
-		LOG.info("High order consumer: " + arg);
+	}
+	
+	//PREDICATE
+	public void metodoPred(IPersonaPredicate<Integer> valor, Integer arg) {
+		LOG.info("High order predicate: " + valor.evaluar(arg));;
+	}
+	//FUNCTION
+	public void metodoFunc(IPersonaFunction<String, Integer> valor, Integer arg) {
+		LOG.info("High order function: " + valor.aplicar(arg));
+	}
+	
+	//UNARY
+	public void metodoUnary(IPersonaUnary<Double> valor, Double arg) {
+		LOG.info("High order unary: " + valor.aplicar(arg));
 	}
 
 }

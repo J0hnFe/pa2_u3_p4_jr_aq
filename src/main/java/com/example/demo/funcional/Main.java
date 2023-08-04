@@ -100,7 +100,7 @@ public class Main {
 		LOG.info("Function lambda2: " + function1.aplicar(10));
 
 		// Met. referenciados
-		IPersonaFunction<String, Integer> function2 = metodosReferenciados::aplicar;
+		IPersonaFunction<String, Integer> function2 = MetodosReferenciados::aplicar;
 		LOG.info(" Function M.Referenciados " + function2.aplicar(55));
 
 		// 5. Unary Operator
@@ -113,10 +113,10 @@ public class Main {
 		LOG.info("UnaryFunc lambda1: " + unaryFunc.aplicar(15));
 
 		// Met. referenciados
-		IPersonaUnary<Double> unary2 = metodosReferenciados::aplicar;
+		IPersonaUnary<Double> unary2 = MetodosReferenciados::aplicar;
 		LOG.info(" Unary M.Referenciados " + unary2.aplicar(55.0));
 
-		IPersonaUnaryFunction<Double> unary3 = metodosReferenciados::aplicar;
+		IPersonaUnaryFunction<Double> unary3 = MetodosReferenciados::aplicar;
 		LOG.info(" UnaryFunc M.Referenciados " + unary3.aplicar(100.0));
 		//********************************************************************************************************************************************************
 		// Metodos referenciados
@@ -128,10 +128,10 @@ public class Main {
 		// SUPPLIER
 		// 1. Clase
 		IPersonaSupplier<String> supplierHO = new PersonaSupplierImpl();
-		highOrder.metodo(supplierHO);
+//		highOrder.metodo(supplierHO);
 
 		// 2. Lambdas
-		highOrder.metodo(() -> "1234HO");
+//		highOrder.metodo(() -> "1234HO");
 
 		// 3. Metodos referenciados
 		highOrder.metodo(MetodosReferenciados::getIdHO);
@@ -139,14 +139,25 @@ public class Main {
 		// CONSUMER
 		// 1. Clase
 		IPersonaConsumer<String> consumerHO = new PersonaConsumerImpl();
-		highOrder.metodoCons(consumerHO, "Clase consumer");
+//		highOrder.metodoCons(consumerHO, "Clase consumer");
 
 		// 2. Lambdas
-		highOrder.metodoCons(cadena -> LOG.info(cadena), "Lambdas Consumer");
+//		highOrder.metodoCons(cadena -> LOG.info(cadena), "Lambdas Consumer");
 
 		// 3. Metodos referenciados
-		highOrder.metodoCons(MetodosReferenciados::aceptar, "Metodos referenciados Consumer");
+		highOrder.metodoCons(MetodosReferenciados::aceptar, "luna");
 
+		//PREDICATE
+		//Metodos referenciados
+		highOrder.metodoPred(MetodosReferenciados::evaluar, 10);
+		
+		//FUNCTION
+		highOrder.metodoFunc(MetodosReferenciados::aplicar, 45);
+		
+		//UNARY
+		highOrder.metodoUnary(MetodosReferenciados::aplicar, 25.0);
+		
+		
 		// *******************************************************************************************************************************************
 		//INT. FUNCIONALES JAVA
 		// 1. Supplier

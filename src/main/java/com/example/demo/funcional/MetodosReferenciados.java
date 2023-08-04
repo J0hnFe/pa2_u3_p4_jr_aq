@@ -13,13 +13,12 @@ public class MetodosReferenciados {
 	}
 
 	public static String getIdHO() {
-		LOG.info("Metodos Referenciados HO");
-		return "Texto HO Supplier";
+		return "id con suppplier";
 	}
 
 	// CONSUMER
 	public static void aceptar(String arg) {
-		String cadena = "Nombre consumer";
+		String cadena = "Nombre consumer:";
 		LOG.info(cadena + " " + arg);
 	}
 
@@ -30,17 +29,16 @@ public class MetodosReferenciados {
 		} else {
 			return false;
 		}
-
 	}
 
 	// FUNCTION
-	public String aplicar(Integer arg) {
+	public static String aplicar(Integer arg) {
 		String valorFinal = arg.toString().concat(" - valor string");
 		return valorFinal;
 	}
 
 	// UNARY
-	public Double aplicar(Double arg) {
+	public static Double aplicar(Double arg) {
 		Double num = arg * 0.3;
 		return num;
 	}
