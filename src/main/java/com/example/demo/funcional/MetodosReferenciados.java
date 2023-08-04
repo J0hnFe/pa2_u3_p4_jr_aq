@@ -13,7 +13,7 @@ public class MetodosReferenciados {
 	}
 
 	public static String getIdHO() {
-		return "id con suppplier";
+		return "M.R: id con supplier";
 	}
 
 	// CONSUMER

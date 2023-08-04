@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 public class Main {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Main.class); 
-	
+	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+
 	public static void main(String[] args) {
 
 		IPersona persona = new PersonaImpl();
@@ -118,9 +118,10 @@ public class Main {
 
 		IPersonaUnaryFunction<Double> unary3 = MetodosReferenciados::aplicar;
 		LOG.info(" UnaryFunc M.Referenciados " + unary3.aplicar(100.0));
-		//********************************************************************************************************************************************************
+		// ********************************************************************************************************************************************************
 		// Metodos referenciados
-		// (Mientras cumpla el contrato lo puedo pasar como una implementacion de la Interfaz funcional)
+		// (Mientras cumpla el contrato lo puedo pasar como una implementacion de la
+		// Interfaz funcional)
 		// Metodos HighOrder
 		LOG.info("\n\nUso Metodos High Order:");
 		MetodosHighOrder highOrder = new MetodosHighOrder();
@@ -128,68 +129,115 @@ public class Main {
 		// SUPPLIER
 		// 1. Clase
 		IPersonaSupplier<String> supplierHO = new PersonaSupplierImpl();
-//		highOrder.metodo(supplierHO);
+		highOrder.metodo(supplierHO);
 
 		// 2. Lambdas
-//		highOrder.metodo(() -> "1234HO");
+		highOrder.metodo(() -> "Lambda texto supp");
 
 		// 3. Metodos referenciados
 		highOrder.metodo(MetodosReferenciados::getIdHO);
 
+		LOG.info("");
+		
 		// CONSUMER
 		// 1. Clase
 		IPersonaConsumer<String> consumerHO = new PersonaConsumerImpl();
-//		highOrder.metodoCons(consumerHO, "Clase consumer");
+		highOrder.metodoCons(consumerHO, "Clase consumer");
 
-		// 2. Lambdas
-//		highOrder.metodoCons(cadena -> LOG.info(cadena), "Lambdas Consumer");
+		// 2. Lambda
+		highOrder.metodoCons(cadena -> LOG.info(cadena), "Lambda Consumer");
 
 		// 3. Metodos referenciados
 		highOrder.metodoCons(MetodosReferenciados::aceptar, "luna");
 
-		//PREDICATE
-		//Metodos referenciados
+		LOG.info("");
+		
+		// PREDICATE
+		// 1. Clase
+		IPersonaPredicate<Integer> predicateHO = new PersonaPredicateImpl();
+		highOrder.metodoPred(predicateHO, 12);
+
+		// 2. Lambda
+		highOrder.metodoPred(x -> {
+			LOG.info("Lambda: ");
+			if (x >= 20) {
+				return true;
+			} else {
+				return false;
+			}
+		}, 31);
+
+		// 3. Metodos referenciados
+		LOG.info("MR: ");
 		highOrder.metodoPred(MetodosReferenciados::evaluar, 10);
+
+		LOG.info("");
 		
-		//FUNCTION
+		// FUNCTION
+		// 1. Clase
+		IPersonaFunction<String, Integer> functionHO = new PersonaFunctionImpl();
+		highOrder.metodoFunc(functionHO, 65);
+
+		// 2. Lambda
+		highOrder.metodoFunc(x -> {
+			Double valorAux = x * 0.5;
+			return "valor lambda: " + valorAux.toString();
+		}, 3);
+
+		// 3. Metodos referenciados
 		highOrder.metodoFunc(MetodosReferenciados::aplicar, 45);
+
+		LOG.info("");
 		
-		//UNARY
+		// UNARY
+		// 1. Clase
+		LOG.info("Clase");
+		IPersonaUnary<BigDecimal> unaryHO = new PersonaUnaryImpl();
+		highOrder.metodoUnary2(unaryHO, new BigDecimal(100));
+		
+		// 2. Lambda
+		highOrder.metodoUnary(x -> {
+			LOG.info("Lambda: ");
+			Double valAux = (x*0.3);
+			return valAux;
+		}, 33.25);
+		
+		// 3. Metodos referenciados
+		LOG.info("M.R: ");
 		highOrder.metodoUnary(MetodosReferenciados::aplicar, 25.0);
-		
-		
+
 		// *******************************************************************************************************************************************
-		//INT. FUNCIONALES JAVA
+		// INT. FUNCIONALES JAVA
 		// 1. Supplier
-		//Supplier
+		// Supplier
 		LOG.info("\n\nUso Interfaces Funcionales:");
-		
+
 		Stream<String> lista = Stream.generate(() -> "123").limit(10);
-		lista.forEach(cadena -> LOG.info(cadena));
+//		lista.forEach(cadena -> LOG.info(cadena));
 
 		// 2. Consumer
 		List<Integer> listaNumeros = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
-		listaNumeros.forEach(cadena -> LOG.info("" + cadena));
+//		listaNumeros.forEach(cadena -> LOG.info("" + cadena));
 
-		//3. Predicate
+		// 3. Predicate
 		Stream<Integer> listaFinal = listaNumeros.stream().filter(numero -> numero >= 5);
-		listaFinal.forEach(numero -> LOG.info("Valor: " + numero));
-		
-		//4. Function
+//		listaFinal.forEach(numero -> LOG.info("Valor: " + numero));
+
+		// 4. Function
 		Stream<String> listaCamb = listaNumeros.stream().map(numero -> {
 			Integer num = 10;
 			num = numero + num;
 			return "n: " + num;
 		});
-		listaCamb.forEach(x -> LOG.info(x));
-		
-		//5. UnaryOperator
+//		listaCamb.forEach(x -> LOG.info(x));
+
+		// 5. UnaryOperator
 		Stream<Integer> listaCamb2 = listaNumeros.stream().map(x -> {
 			Integer num = 10;
 			num = x + num;
-			return  num;
+			return num;
 		});
-		listaCamb2.forEach(x -> LOG.info("" + x));
-		
+//		listaCamb2.forEach(x -> LOG.info("" + x));
+
 	}
 }

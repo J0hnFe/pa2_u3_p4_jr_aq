@@ -1,5 +1,7 @@
 package com.example.demo.funcional;
 
+import java.math.BigDecimal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +32,10 @@ public class MetodosHighOrder {
 	//UNARY
 	public void metodoUnary(IPersonaUnary<Double> valor, Double arg) {
 		LOG.info("High order unary: " + valor.aplicar(arg));
+	}
+	
+	public void metodoUnary2(IPersonaUnary<BigDecimal> valor, BigDecimal arg) {
+		LOG.info("High order unary2: " + valor.aplicar(arg));
 	}
 
 }
